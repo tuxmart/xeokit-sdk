@@ -177,9 +177,12 @@ const frame = function () {
         }
         stats.frame.fps = Math.round(totalFPS / fpsSamples.length);
     }
+
+    
     runTasks(time);
     fireTickEvents(time);
-    renderScenes();
+    core.scheduleTask(renderScenes);
+    
     lastTime = time;
     if (rafEnabled) {
         window.requestAnimationFrame(frame);
