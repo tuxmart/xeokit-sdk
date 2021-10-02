@@ -148,9 +148,12 @@ const frame = function () {
         }
         stats.frame.fps = Math.round(totalFPS / fpsSamples.length);
     }
+
+    
     runTasks(time);
     fireTickEvents(time);
-    renderScenes();
+    core.scheduleTask(renderScenes);
+    
     lastTime = time;
     (window.requestPostAnimationFrame !== undefined) ? window.requestPostAnimationFrame(frame) : requestAnimationFrame(frame);
 };
