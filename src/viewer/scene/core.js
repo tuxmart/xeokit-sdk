@@ -149,11 +149,13 @@ const frame = function () {
         }
         stats.frame.fps = Math.round(totalFPS / fpsSamples.length);
     }
+
+    
     runTasks(time);
     fireTickEvents(time);
     core.scheduleTask(renderScenes);
     lastTime = time;
-    window.requestAnimationFrame(frame);
+    
 };
 
 function runTasks(time) { // Process as many enqueued tasks as we can within the per-frame task budget
@@ -229,6 +231,9 @@ function renderScenes() {
     }
 }
 
-setInterval(frame, 16);
+setInterval(() => {
+    frame();
+}, 16);
+
 
 export {core};
