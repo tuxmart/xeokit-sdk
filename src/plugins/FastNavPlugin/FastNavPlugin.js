@@ -156,40 +156,35 @@ class FastNavPlugin extends Plugin {
         const viewer = this.viewer;
 
         const canvas = viewer.scene.canvas.canvas;
-        const canvasOffset = cumulativeOffset(canvas);
-        const zIndex = (parseInt(canvas.style["z-index"]) || 0) + 1;
-        this._img.style.position = "fixed";
+        const canvasOffset = getOffset(canvas);
+        this._img.style.position = "absolute";
         this._img.style["margin"] = 0 + "px";
-        this._img.style["z-index"] = zIndex;
         this._img.style["background"] = canvas.style.background;
         this._img.style.left = canvasOffset.left + "px";
         this._img.style.top = canvasOffset.top + "px";
         this._img.style.width = canvas.width + "px";
         this._img.style.height = canvas.height + "px";
-        this._img.width = canvas.width;
-        this._img.height = canvas.height;
         this._img.src = ""; // Needed by Firefox - https://github.com/xeokit/xeokit-sdk/issues/624
         this._img.src = viewer.getSnapshot({
             format: "png",
-            includeGizmos: true
+            includeGizmos: true,
         });
         this._img.style.visibility = "visible";
         this._img.style.opacity = 1;
+        this._img.style.pointerEvents = "none";
 
         let opacity = 1;
         this._pInterval = setInterval(() => {
             opacity -= inc;
             if (opacity > 0) {
                 this._img.style.opacity = opacity;
-                const canvasOffset = cumulativeOffset(canvas);
+                const canvasOffset = getOffset(canvas);
                 this._img.style.left = canvasOffset.left + "px";
                 this._img.style.top = canvasOffset.top + "px";
                 this._img.style.width = canvas.width + "px";
                 this._img.style.height = canvas.height + "px";
                 this._img.style.opacity = opacity;
-                this._img.width = canvas.width;
-                this._img.height = canvas.height;
-
+                this._img.style.pointerEvents = "none";
             } else {
                 this._img.style.opacity = 0;
                 this._img.style.visibility = "hidden";
@@ -200,23 +195,17 @@ class FastNavPlugin extends Plugin {
     }
 
     _initFade() {
-        this._img = document.createElement('img');
+        this._img = document.createElement("img");
         const canvas = this.viewer.scene.canvas.canvas;
-        const canvasOffset = cumulativeOffset(canvas);
-        const zIndex = (parseInt(canvas.style["z-index"]) || 0) + 1;
+        const canvasOffset = getOffset(canvas);
         this._img.style.position = "absolute";
         this._img.style.visibility = "hidden";
         this._img.style["pointer-events"] = "none";
-        this._img.style["z-index"] = 5;
         this._img.style.left = canvasOffset.left + "px";
         this._img.style.top = canvasOffset.top + "px";
         this._img.style.width = canvas.width + "px";
         this._img.style.height = canvas.height + "px";
         this._img.style.opacity = 1;
-        this._img.width = canvas.width;
-        this._img.height = canvas.height;
-        this._img.left = canvasOffset.left;
-        this._img.top = canvasOffset.top;
         canvas.parentNode.insertBefore(this._img, canvas.nextSibling);
     }
 
@@ -251,7 +240,7 @@ class FastNavPlugin extends Plugin {
      * @return {Boolean} Whether PBR will be enabled.
      */
     get pbrEnabled() {
-        return this._pbrEnabled
+        return this._pbrEnabled;
     }
 
     /**
@@ -269,7 +258,7 @@ class FastNavPlugin extends Plugin {
      * @return {Boolean} Whether SAO will be enabled.
      */
     get saoEnabled() {
-        return this._saoEnabled
+        return this._saoEnabled;
     }
 
     /**
@@ -287,7 +276,7 @@ class FastNavPlugin extends Plugin {
      * @return {Boolean} Whether edge enhancement will be enabled.
      */
     get edgesEnabled() {
-        return this._edgesEnabled
+        return this._edgesEnabled;
     }
 
     /**
@@ -320,18 +309,18 @@ class FastNavPlugin extends Plugin {
     }
 }
 
-function cumulativeOffset(element) {
-    let top = 0, left = 0;
-    do {
-        top += element.offsetTop || 0;
-        left += element.offsetLeft || 0;
-        element = element.offsetParent;
-    } while (element);
-
-    return {
-        top: top,
-        left: left
-    };
+function getOffset(element) {
+    if (element) {
+        return {
+            top: element.offsetTop || 0,
+            left: element.offsetLeft || 0,
+        };
+    } else {
+        return {
+            top: 0,
+            left: 0,
+        };
+    }
 }
 
-export {FastNavPlugin}
+export { FastNavPlugin };
