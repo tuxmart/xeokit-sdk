@@ -1100,7 +1100,7 @@ class Input extends Component {
             }
         });
 
-        document.addEventListener("mouseup", this._mouseUpListener = (e) => {
+        this.element.addEventListener("mouseup", this._mouseUpListener = (e) => {
             if (!this.enabled) {
                 return;
             }
@@ -1123,7 +1123,7 @@ class Input extends Component {
             // }
         }, true);
 
-        document.addEventListener("click", this._clickListener = (e) => {
+        this.element.addEventListener("click", this._clickListener = (e) => {
             if (!this.enabled) {
                 return;
             }
