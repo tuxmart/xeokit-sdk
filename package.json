@@ -7,8 +7,7 @@
   "scripts": {
     "build": "rollup --config rollup.config.js; rollup --config rollup.minified.config.js; cp node_modules/web-ifc/web-ifc.wasm dist/.",
     "test": "percy exec -- node ./snapshots.js",
-    "docs": "rm -Rf ./docs/*; ./node_modules/.bin/esdoc",
-    "publish": "npm publish --access public"
+    "docs": "rm -Rf ./docs/*; ./node_modules/.bin/esdoc"
   },
   "repository": {
     "type": "git",
