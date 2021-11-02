@@ -1,7 +1,7 @@
 // Some temporary vars to help avoid garbage collection
 
-let doublePrecision = true;
-let FloatArrayType = doublePrecision ? Float64Array : Float32Array;
+const doublePrecision = false;
+const FloatArrayType = doublePrecision ? Float64Array : Float32Array;
 
 const tempMat1 = new FloatArrayType(16);
 const tempMat2 = new FloatArrayType(16);
