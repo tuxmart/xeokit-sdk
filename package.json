@@ -1,5 +1,5 @@
 {
-  "name": "@xeokit/xeokit-sdk",
+  "name": "@tuxmart/xeokit-sdk",
   "version": "2.2.2",
   "description": "Web Programming Toolkit for 3D/2D BIM and AEC Graphics",
   "module": "/dist/xeokit-sdk.es.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xeokit/xeokit-sdk.git"
+    "url": "git+https://github.com/tuxmart/xeokit-sdk.git"
   },
   "keywords": [
     "webgl",
@@ -40,7 +40,7 @@
   "author": "Lindsay Kay",
   "license": "See LICENSE.txt",
   "bugs": {
-    "url": "https://github.com/xeokit/xeokit-sdk/issues"
+    "url": "https://github.com/tuxmart/xeokit-sdk/issues"
   },
   "homepage": "https://xeokit.io",
   "dependencies": {
