@@ -315,7 +315,7 @@ class MousePanRotateDollyHandler {
                 mouseMovedOnCanvasSinceLastWheel = false;
             }
 
-            e.preventDefault();
+            // e.preventDefault();
         }, {passive: true});
     }
 
