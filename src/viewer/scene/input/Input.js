@@ -1063,7 +1063,11 @@ class Input extends Component {
             }
             this.mouseover = true;
             this._getMouseCanvasPos(e);
-            this.fire("mouseenter", this.mouseCanvasPos, true);
+            this.fire(
+              'mouseenter',
+              [this.mouseCanvasPos[0], this.mouseCanvasPos[1]],
+              true
+            );
         });
 
         this.element.addEventListener("mouseleave", this._mouseLeaveListener = (e) => {
@@ -1072,7 +1076,11 @@ class Input extends Component {
             }
             this.mouseover = false;
             this._getMouseCanvasPos(e);
-            this.fire("mouseleave", this.mouseCanvasPos, true);
+            this.fire(
+              'mouseleave',
+              [this.mouseCanvasPos[0], this.mouseCanvasPos[1]],
+              true
+            );
         });
 
         this.element.addEventListener("mousedown", this._mouseDownListener = (e) => {
@@ -1094,13 +1102,17 @@ class Input extends Component {
             }
             this._getMouseCanvasPos(e);
             this.element.focus();
-            this.fire("mousedown", this.mouseCanvasPos, true);
+            this.fire(
+              'mousedown',
+              [this.mouseCanvasPos[0], this.mouseCanvasPos[1]],
+              true
+            );
             if (this.mouseover) {
                 e.preventDefault();
             }
         });
 
-        document.addEventListener("mouseup", this._mouseUpListener = (e) => {
+        this.element.addEventListener("mouseup", this._mouseUpListener = (e) => {
             if (!this.enabled) {
                 return;
             }
@@ -1117,13 +1129,18 @@ class Input extends Component {
                 default:
                     break;
             }
-            this.fire("mouseup", this.mouseCanvasPos, true);
+            this._getMouseCanvasPos(e);
+            this.fire(
+              'mouseup',
+              [this.mouseCanvasPos[0], this.mouseCanvasPos[1]],
+              true
+            );
             // if (this.mouseover) {
             //     e.preventDefault();
             // }
         }, true);
 
-        document.addEventListener("click", this._clickListener = (e) => {
+        this.element.addEventListener("click", this._clickListener = (e) => {
             if (!this.enabled) {
                 return;
             }
@@ -1143,13 +1160,13 @@ class Input extends Component {
                     break;
             }
             this._getMouseCanvasPos(e);
-            this.fire("click", this.mouseCanvasPos, true);
+            this.fire("click", [this.mouseCanvasPos[0], this.mouseCanvasPos[1]], true);
             if (this.mouseover) {
                 e.preventDefault();
             }
         });
 
-        document.addEventListener("dblclick", this._dblClickListener = (e) => {
+        this.element.addEventListener("dblclick", this._dblClickListener = (e) => {
             if (!this.enabled) {
                 return;
             }
@@ -1169,7 +1186,7 @@ class Input extends Component {
                     break;
             }
             this._getMouseCanvasPos(e);
-            this.fire("dblclick", this.mouseCanvasPos, true);
+            this.fire("dblclick", [this.mouseCanvasPos[0], this.mouseCanvasPos[1]], true);
             if (this.mouseover) {
                 e.preventDefault();
             }
@@ -1210,7 +1227,7 @@ class Input extends Component {
                     downX <= (params[0] + tolerance) &&
                     downY >= (params[1] - tolerance) &&
                     downY <= (params[1] + tolerance)) {
-                    this.fire("mouseclicked", params, true);
+                    this.fire('mouseclicked', [params[0], params[1]], true);
                 }
             });
         }
@@ -1227,9 +1244,9 @@ class Input extends Component {
         this.element.removeEventListener("mouseenter", this._mouseEnterListener);
         this.element.removeEventListener("mouseleave", this._mouseLeaveListener);
         this.element.removeEventListener("mousedown", this._mouseDownListener);
-        document.removeEventListener("mouseup", this._mouseDownListener);
-        document.removeEventListener("click", this._clickListener);
-        document.removeEventListener("dblclick", this._dblClickListener);
+        this.element.removeEventListener("mouseup", this._mouseDownListener);
+        this.element.removeEventListener("click", this._clickListener);
+        this.element.removeEventListener("dblclick", this._dblClickListener);
         this.element.removeEventListener("mousemove", this._mouseMoveListener);
         this.element.removeEventListener("wheel", this._mouseWheelListener);
         if (window.OrientationChangeEvent) {
@@ -1250,16 +1267,8 @@ class Input extends Component {
             this.mouseCanvasPos[0] = event.x;
             this.mouseCanvasPos[1] = event.y;
         } else {
-            let element = event.target;
-            let totalOffsetLeft = 0;
-            let totalOffsetTop = 0;
-            while (element.offsetParent) {
-                totalOffsetLeft += element.offsetLeft;
-                totalOffsetTop += element.offsetTop;
-                element = element.offsetParent;
-            }
-            this.mouseCanvasPos[0] = event.pageX - totalOffsetLeft;
-            this.mouseCanvasPos[1] = event.pageY - totalOffsetTop;
+            this.mouseCanvasPos[0] = event.offsetX;
+            this.mouseCanvasPos[1] = event.offsetY;
         }
     }
 
