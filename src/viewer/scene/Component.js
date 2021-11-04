@@ -322,8 +322,12 @@ class Component {
                 if (subs.hasOwnProperty(subId)) {
                     sub = subs[subId];
                     this._eventCallDepth++;
-                    if (this._eventCallDepth < 300) {
-                        sub.callback.call(sub.scope, value);
+                    if (this._eventCallDepth < 300 ) {
+                        if (sub && !!sub.callback) {
+                            sub.callback.call(sub.scope, value);
+                        } else {
+                            this.error("fire: invalid callback of subscriber from event '" + event + "' - dropping this event");
+                        }
                     } else {
                         this.error("fire: potential stack overflow from recursive event '" + event + "' - dropping this event");
                     }
