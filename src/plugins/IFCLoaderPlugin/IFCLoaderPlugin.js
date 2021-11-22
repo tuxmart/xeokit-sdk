@@ -381,11 +381,24 @@ class IFCLoaderPlugin extends Plugin {
         if (cfg.wasmPath) {
             this._ifcAPI.SetWasmPath(cfg.wasmPath);
         }
+        
+        this.initializeIfcAPI = this.initializeIfcAPI.bind(this);
+       
 
-        this._ifcAPI.Init().then(() => {
-            this.fire("initialized", true, false); // Don't forget the event
-        }).catch((e) => {
-            this.error(e);
+    }
+
+    initializeIfcAPI() {
+        return new Promise((resolve, reject) => {
+            this._ifcAPI
+            .Init()
+            .then(() => {
+                this.fire('initialized', true, false); // Don't forget the event
+                resolve()
+            })
+            .catch((e) => {
+                this.error(e);
+                reject(e)
+            });
         })
     }
 
@@ -631,14 +644,20 @@ class IFCLoaderPlugin extends Plugin {
             options.globalizeObjectIds = (params.globalizeObjectIds !== undefined) ? (!!params.globalizeObjectIds) : this._globalizeObjectIds;
         }
 
-        this.on("initialized", () => {
+        if (!this._ifcAPI.wasmModule) {
+            this.initializeIfcAPI().then(() => {});
             if (params.src) {
                 this._loadModel(params.src, params, options, performanceModel);
             } else {
                 this._parseModel(params.ifc, params, options, performanceModel);
             }
-        });
-
+        } else {
+            if (params.src) {
+                this._loadModel(params.src, params, options, performanceModel);
+            } else {
+                this._parseModel(params.ifc, params, options, performanceModel);
+            }
+        }
         return performanceModel;
     }
 
