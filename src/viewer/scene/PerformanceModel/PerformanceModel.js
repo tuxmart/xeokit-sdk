@@ -1035,6 +1035,17 @@ class PerformanceModel extends Component {
     }
 
     /**
+     * Sets the PerformanceModel's local translation.
+     *
+     * Default value is ````[0,0,0]````.
+     *
+     * @type {Number[]}
+     */
+    set position(pos) {
+        this._position = pos
+    }
+
+    /**
      * Gets the PerformanceModel's local rotation, as Euler angles given in degrees, for each of the X, Y and Z axis.
      *
      * Default value is ````[0,0,0]````.
@@ -1043,6 +1054,17 @@ class PerformanceModel extends Component {
      */
     get rotation() {
         return this._rotation;
+    }
+
+      /**
+     * Sets the PerformanceModel's local rotation, as Euler angles given in degrees, for each of the X, Y and Z axis.
+     *
+     * Default value is ````[0,0,0]````.
+     *
+     * @type {Number[]}
+     */
+    set rotation(rot) {
+        this._rotation = rot;
     }
 
     /**
@@ -1054,6 +1076,17 @@ class PerformanceModel extends Component {
      */
     get quaternion() {
         return this._quaternion;
+    }
+
+    /**
+     * Sets the PerformanceModels's local rotation quaternion.
+     *
+     * Default value is ````[0,0,0,1]````.
+     *
+     * @type {Number[]}
+     */
+    set quaternion(quat) {
+        this._quaternion = quat;
     }
 
     /**
