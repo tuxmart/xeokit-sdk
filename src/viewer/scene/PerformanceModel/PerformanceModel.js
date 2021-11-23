@@ -1043,6 +1043,7 @@ class PerformanceModel extends Component {
      */
     set position(pos) {
         this._position = pos
+        this.glRedraw();
     }
 
     /**
@@ -1065,6 +1066,7 @@ class PerformanceModel extends Component {
      */
     set rotation(rot) {
         this._rotation = rot;
+        this.glRedraw();
     }
 
     /**
@@ -1087,6 +1089,7 @@ class PerformanceModel extends Component {
      */
     set quaternion(quat) {
         this._quaternion = quat;
+        this.glRedraw();
     }
 
     /**
