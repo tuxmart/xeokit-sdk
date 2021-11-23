@@ -644,13 +644,14 @@ class IFCLoaderPlugin extends Plugin {
             options.globalizeObjectIds = (params.globalizeObjectIds !== undefined) ? (!!params.globalizeObjectIds) : this._globalizeObjectIds;
         }
 
-        if (!this._ifcAPI.wasmModule) {
-            this.initializeIfcAPI().then(() => {});
-            if (params.src) {
-                this._loadModel(params.src, params, options, performanceModel);
-            } else {
-                this._parseModel(params.ifc, params, options, performanceModel);
-            }
+        if (!this._ifcAPI.fs) {
+            this.initializeIfcAPI().then(() => {
+                if (params.src) {
+                    this._loadModel(params.src, params, options, performanceModel);
+                } else {
+                    this._parseModel(params.ifc, params, options, performanceModel);
+                }
+            });
         } else {
             if (params.src) {
                 this._loadModel(params.src, params, options, performanceModel);
