@@ -1209,6 +1209,7 @@ class Input extends Component {
             }
             const delta = Math.max(-1, Math.min(1, -e.deltaY * 40));
             this.fire("mousewheel", delta, true);
+            e.stopPropagation();
         }, {passive: true});
 
         // mouseclicked
