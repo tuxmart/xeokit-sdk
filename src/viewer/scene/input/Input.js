@@ -1203,7 +1203,7 @@ class Input extends Component {
             }
         });
 
-        this.element.addEventListener("wheel", this._mouseWheelListener = (e, d) => {
+        this.element.addEventListener("wheel", this._mouseWheelListener = (e) => {
             if (!this.enabled) {
                 return;
             }

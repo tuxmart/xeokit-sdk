@@ -68,7 +68,7 @@
     "typedoc": "^0.22.15"
   },
   "files": [
-    "dist"
+    "dist",
     "/types"
   ]
 }

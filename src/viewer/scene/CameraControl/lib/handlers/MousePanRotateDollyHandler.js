@@ -315,6 +315,7 @@ class MousePanRotateDollyHandler {
                 states.followPointerDirty = true;
                 mouseMovedOnCanvasSinceLastWheel = false;
             }
+            e.stopPropagation();
 
         }, {passive: true});
     }
