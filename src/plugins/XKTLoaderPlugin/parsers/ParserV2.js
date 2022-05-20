@@ -9,7 +9,7 @@ DEPRECATED
  */
 
 import {utils} from "../../../viewer/scene/utils.js";
-import * as p from "./lib/pako.js";
+import p from 'pako';
 import {math} from "../../../viewer/scene/math/math.js";
 
 let pako = window.pako || p;

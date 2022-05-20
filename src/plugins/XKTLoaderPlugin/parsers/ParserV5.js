@@ -7,7 +7,7 @@
  */
 
 import {utils} from "../../../viewer/scene/utils.js";
-import * as p from "./lib/pako.js";
+import p from 'pako';
 
 let pako = window.pako || p;
 if (!pako.inflate) {  // See https://github.com/nodeca/pako/issues/97
